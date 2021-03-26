@@ -1,0 +1,15 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load my_filters %}
+<!-- Название у нас будет посты -->
+{% block title %}
+Posts
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим всех постов -->
+{% block content %}
+<h1>{{ posts.title }}</h1>
+<h3>{{ posts.time_in}}</h3>
+<t1>{{ posts.text|Censor }}</t1>
+
+{% endblock content %}
