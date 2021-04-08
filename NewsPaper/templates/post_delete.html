@@ -1,0 +1,17 @@
+
+{% extends 'flatpages/default.html' %}
+{% load my_filters %}
+
+{% block title %}
+Deleting Post
+{% endblock title %}
+
+{% block content %}
+    <h3>Do you really want to delete this post?</h3>
+
+
+    <form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="confirm"></form>
+
+{% endblock content %}
