@@ -1,0 +1,26 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Post details
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, айди которого было передано в адрес -->
+{% block content %}
+<h1>{{ Post.title }}
+
+</h1>
+
+<h2>Category :{{ Post.category }}</h2>
+<h3>{{ Post.time_in }}</h3>
+<t1>{{ Post.text }}</t1>
+<h4>text by:{{ Post.Author }}</h4>
+
+
+<a href="{% url 'post_update' Post.id %}"><u>Edit</u></a> <!-- добавим ссылку на редактирование товара-->
+<a href="{% url 'post_delete' Post.id %}"><u> Delete </u></a> <!-- добавим ссылку на удаление товара-->
+
+<a href="http://127.0.0.1:8000/Posts/">Home</a>
+{% endblock content %}
+

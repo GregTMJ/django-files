@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block content %}
+<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+<div> Здесь может содержаться персональная информация для каждого пользователя </div>
+
+{% if is_not_author %}
+<button> <a href="/upgrade"> Become an author</a> </button>
+
+{% else %}
+<button> <a href="/Posts/">Home</a></button>
+{% endif %}
+
+{% endblock %}
+
