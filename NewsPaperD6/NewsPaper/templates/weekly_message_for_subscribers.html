@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>Dear {{ user.username }}!</p>
+<br/>
+<p>We give you our posts/articles on the past week:</p>
+
+<table>
+
+    {% for posts in art %}
+
+        {% for post in posts %}
+
+            {% if post %}
+
+                <tr>
+                    <td>
+                         <a href="http://127.0.0.1:8000/Posts/{{ post.id }}">{{ post.title }}</a>
+                    </td>
+
+                    <td>
+                        {{ post.text|truncatewords:5 }}
+                    </td>
+
+            {% else %}
+
+                <t1>There is no posts/articles for you</t1>
+             </tr>
+
+            {% endif %}
+
+         {% endfor %}
+
+   {% endfor %}
+
+
+</body>
+</html>

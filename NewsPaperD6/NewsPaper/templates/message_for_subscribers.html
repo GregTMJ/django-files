@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>Dear, {{ username|title }}</p>
+<br/><br/>
+<p>Lately you subscribed to category: {{ category|title }}. So here you got some fresh views on another news related to
+your subscription!</p>
+<br/><br/>
+<a style="text-align: left;" href="{{ link }}" >{{ text|truncatewords:50 }}<a/>
+<br/><br/>
+<t1>With best regards, your "PaperNews")</t1>
+
+</body>
+
+</html>

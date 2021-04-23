@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<div> On this page you need to signin/signup</div>
+ <br/>
+{% if user.is_authenticated %}
+
+    <br/>
+
+        <h2>Good to have you back {{request.user.username}}</h2>
+
+    <br/>
+        <button> <a href="/Posts/">Home</a></button>
+
+        {% if is_not_author %}
+
+            <button> <a href="/upgrade"> Become an author</a> </button>
+
+            {% endif %}
+{% else %}
+
+<t>You must login/signup in order to go further!</t>
+
+{% endif %}
+
+{% endblock %}

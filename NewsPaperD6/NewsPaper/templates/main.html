@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title> Sign in/Sign up</title>
+    </head>
+    <body>
+    {% if user.is_authenticated %}
+        <div>
+            <h1><a href="/accounts/logout/", class="nav-link active">Logout</a></h1>
+        </div>
+    {% else %}
+        <div>
+            <h1><a href="/accounts/login/", class="nav-link active">SignIn/Signup</a></h1>
+        </div>
+    {% endif %}
+        {% block content %}
+        {% endblock %}
+    </body>
+
+</html>
