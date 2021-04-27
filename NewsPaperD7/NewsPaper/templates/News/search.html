@@ -1,0 +1,95 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Search Posts
+{% endblock title %}
+
+{% block content %}
+
+<br/>
+
+<form method="GET">
+    {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+    <input type="submit" value="Search">
+</form>
+
+<br/>
+<br/>
+
+<table>
+            <tr>
+                <td>
+                    Title
+                </td>
+                <td>
+                    Text
+                </td>
+                <td>
+                    category
+                </td>
+                <td>
+                    rating
+                </td>
+                <td>
+                    time in
+                </td>
+            </tr>
+
+    {% for Posts in filter.qs %}
+            <tr>
+                <td>
+                    <a href="{% url 'post_details' Posts.id %}">{{ Posts.title }}</a>
+                </td>
+               <td>
+                    {{ Posts.text|truncatewords:1 }}
+                </td>
+                <td>
+                    {{ Posts.category }}
+                </td>
+                <td>
+                    {{ Posts.rating }}
+                </td>
+                <td>
+                    {{ Posts.time_in }}
+                </td>
+            </tr>
+        {% endfor %}
+</table>
+
+<br/>
+<br/>
+
+
+{% if is_paginated %}
+
+    <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+    <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-1' and num < page_obj.number|add:'1' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+{% endif %}
+
+<br/><br/>
+<a href="{% url 'post_create' %}", class="btn btn-dark"><u>tap here to create a new post/article</u></a>
+
+<br/><br/>
+<a href="http://127.0.0.1:8000/Posts/", class="btn btn-dark">Home</a>
+
+{% endblock content %}
