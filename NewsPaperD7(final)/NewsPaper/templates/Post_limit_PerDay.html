@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Day limit
+{% endblock title %}
+
+{% block content %}
+    <h3 style="text-align: center;">Well Hello there champ, {{ user.username }}. You have reached your limits for today!<br>
+        Come back tomorrow and let's see how good you are!</h3>
+
+
+<br/><br/>
+<a href="http://127.0.0.1:8000/Posts/", class="btn btn-dark">Home</a>
+
+{% endblock content %}

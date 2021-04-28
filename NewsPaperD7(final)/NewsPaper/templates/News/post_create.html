@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+ 
+{% block title %} Product list {% endblock title %}
+ 
+{% block content %}
+<h3>Adding a post</h3>
+<br/>
+<form method="POST">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <input type="submit" value="add post", class="btn btn-secondary">
+</form>
+{% endblock content %}

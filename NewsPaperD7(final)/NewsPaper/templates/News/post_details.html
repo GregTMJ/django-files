@@ -1,0 +1,56 @@
+{% extends "flatpages/default.html" %}
+{% load my_filters %}
+
+{% block title %}
+{{ Post.title }}
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, айди которого было передано в адрес -->
+{% block content %}
+<h1> {{ Post.title|title }} </h1>
+<br/>
+<div>
+<h2> {{ Post.category }} </h2>
+    </div>
+<br/>
+<h3> {{ Post.time_in }} </h3>
+<br/>
+<t1> {{ Post.text }} </t1>
+<br/>
+<br/>
+<br/>
+<p> text by: {{ Post.author|title }} </p>
+
+<br/><br/>
+    <form action="{% url 'subscribe' Post.pk %}" method="POST">
+            {% csrf_token %}
+
+    {% if user.is_authenticated %}
+        {% if subscribed %}
+                <button , ,
+                        , class="btn btn-danger"
+                        name="Post.id" type="submit"
+                        value="{{ Post.id }}">unsubscribe to category: {{ Post.category }}</button>
+        {% else %}
+                <button , ,
+                        , class="btn btn-dark"
+                        name="Post.id" type="submit"
+                        value="{{ Post.id }}">subscribe to category: {{ Post.category }}</button>
+        {% endif %}
+
+    {% else %}
+            Login to subscribe
+    {% endif %}
+    </form>
+
+<br/><br/>
+<a href="{% url 'post_update' Post.pk %}",
+class="btn btn-light"><u>Edit</u></a> <!-- добавим ссылку на редактирование статьи-->
+<br/>
+<br/>
+<a href="{% url 'post_delete' Post.pk %}",
+class="btn btn-light"><u> Delete </u></a> <!-- добавим ссылку на удаление статьи-->
+
+<br/><br/>
+<a href="http://127.0.0.1:8000/Posts/", class="btn btn-dark">Home</a>
+{% endblock content %}
