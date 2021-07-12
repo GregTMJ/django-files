@@ -1,0 +1,84 @@
+{% extends 'Post/default.html' %}
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of posts</title>
+</head>
+{% block content %}
+
+{% if Posts %}
+
+    <h1 style="text-align: center;">
+        <font face="'Times New Roman">All available posts
+        </font></h1>
+<hr>
+<body>
+
+<br><br>
+
+
+    <ul>
+    {% for Post in Posts %}
+        <li>
+            <a href="{% url 'post_details' Post.id %}">
+                <font size="4" face="Times New Roman">{{ Post.title|title }}-
+                </font></a>
+            <br><br>
+                    <font size="4" face="Times New Roman">
+                    {{ Post.body|safe }}-
+                    </font>
+
+                    <font size="4" face="Times New Roman">Created on:
+                    {{ Post.time_in|date:'d M Y' }}-
+                    </font>
+            <br>
+<br><br>
+                    <font size="4" face="Times New Roman"> Category:
+                    {{ Post.cat|title }}-
+                    </font>
+<br><br>
+                <font size="4" face="Times New Roman">
+                  text by:  {{ Post.author }}
+                </font>
+            <br><br>
+            <hr>
+        </li>
+    {% endfor %}
+
+    {% else %}
+            <h2 style="text-align: center;">
+            <font face="'Times New Roman">
+                No post available currently
+            </font>
+            </h2>
+    {% endif %}
+    </ul>
+
+{% if is_paginated %}
+
+    <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+    {% if page_obj.has_previous %}
+        <a href="?page=1">{% trans 'First' %}</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+    <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-1' and num < page_obj.number|add:'1' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">{% trans 'Last' %}</a>
+    {% endif %}
+{% endif %}
+</body>
+</html>
+
+{% endblock content %}
