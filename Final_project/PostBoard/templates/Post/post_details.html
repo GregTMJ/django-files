@@ -1,0 +1,92 @@
+{% extends 'Post/default.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Post_details
+{% endblock title %}
+
+{% block content %}
+
+<h1 style=" text-align: center">
+    <font size="20" face="Times New Roman"> {{ Post.title }} </font>
+</h1>
+<br/>
+<hr>
+<div>
+
+    <t1 style="text-align: left">
+    <font size="4" face="Times New Roman"> text by : {{ Post.author|title }} </font></t1>
+    <br>
+
+<t2><font size="4" face="Times New Roman">Category: {{ Post.cat }} </font> </t2>
+    </div>
+<hr>
+<br/>
+
+<h3>
+    <font face ='Times New Roman'>{{ Post.time_in|date:'d M Y' }} </font></h3>
+<br/>
+
+<img src="{{ Post.image.url }}">
+
+<br/><br/>
+
+<t1>
+    <font size="4" face="'Times New Roman"> {{ Post.body|safe }} </font>
+</t1>
+
+<br/><br/>
+
+<hr>
+<h2><strong> Comments ...</strong></h2>
+<hr>
+
+{% if not Post.comments.all %}
+    No comments yet... <a href="{% url 'add_comment' Post.pk %}">Add one</a>
+
+{% else %}
+    </br>
+    <a href="{% url 'add_comment' Post.pk %}">Add comment</a>
+    </br></br>
+        {% for comment in Post.comments.all %}
+            {% if comment.accepted %}
+            <strong>
+                Comment by: {{ comment.username }}
+
+
+                </strong>
+    </br></br>
+            <small>
+                {{ comment.date_added }}
+            </small>
+
+            <br/><br/>
+        {{ comment.text }}
+     </br></br>
+            {% if user.id == comment.username.id %}
+                <a href="{% url 'edit_comment' comment.pk %}"
+                   class="btn btn-light"><u>{% trans 'Edit' %}</u></a>
+            {% endif %}
+        {% endif %}
+<br/>
+<hr>
+
+
+    {% endfor %}
+{% endif %}
+
+<br/><br/>
+
+<br/><br/>
+{% if user.id == Post.author.id %}
+    <a href="{% url 'post_update' Post.pk %}"
+       class="btn btn-light"><u>{% trans 'Edit' %}</u></a>
+    <a href="{% url 'post_delete' Post.pk %}"
+       class="btn btn-light"><u>{% trans "Delete" %}</u></a>
+{% endif %}
+
+<br/><br/>
+<br/><br/>
+
+{% endblock content %}

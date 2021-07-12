@@ -1,0 +1,24 @@
+{% extends 'Post/default.html' %}
+{% block title %}
+Deleting Post
+{% endblock title %}
+
+{% block content %}
+{% if user.id == Post.author.id %}
+<h3>
+    <font size="20" face="Times New Roman">Do you really want to delete this post?</font>
+</h3>
+
+
+    <form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="confirm"></form>
+
+{% else %}
+
+<h1>
+<font size="20" face="Times New Roman">Another funny guy trying to delete something here!</font>
+</h1>
+
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'Post/default.html' %}
+{% block title %}
+Deleting Post
+{% endblock title %}
+
+{% block content %}
+
+<h3>
+    <font size="20" face="Times New Roman">Do you really want to delete this comment?</font>
+</h3>
+    <form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="confirm"></form>
+
+{% endblock content %}

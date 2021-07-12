@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+
+    <head>
+        <title>{% block head_title %}{% endblock head_title %}</title>
+    </head>
+
+    <body>
+    {% block content %}
+
+<br><br>
+<br><br>
+        <br><br>
+
+        {% if user.is_authenticated %}
+
+        <h1 style="text-align: center;" ><font size="4" face="Times New Roman">
+            You are very welcomed by all the community!</font></h1>
+
+            <strong><a href="http://127.0.0.1:8000/Posts/" class="nav-link"
+                       style="text-align: center;">Start from our homepage</a></strong>
+        <br>
+
+        {% else %}
+            <strong> You will have to login first to join us </strong>
+
+        {% endif %}
+
+    {% endblock %}
+    </body>
