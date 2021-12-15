@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" media="all" href="https://germini.info/js/jqvmap/src/jquery-jvectormap.css" />
+
+	<link rel="icon" href="{% static 'assets/images/nts.png' %}" type="image/png" />
+
+	<!-- CSS Просто для демонстрации, не включайте его в свой проект -->
+	<!--plugins-->
+	<link href="{% static 'assets/plugins/simplebar/css/simplebar.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/metismenu/css/metisMenu.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/highcharts/css/highcharts-white.css' %}" rel="stylesheet" />
+
+	<link href="{% static 'assets/css/anychart-ui.min.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'assets/css/anychart-font.min.css' %}" type="text/css" rel="stylesheet">
+
+	<!-- Bootstrap CSS -->
+	<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/css/app.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/css/icons.css' %}" rel="stylesheet">
+	<!-- Theme Style CSS -->
+
+<!-- 	<link rel="stylesheet" href="{% static 'assets/css/dark-theme.css' %}" />
+	<link rel="stylesheet" href="{% static 'assets/css/semi-dark.css' %}" />
+	<link rel="stylesheet" href="{% static 'assets/css/header-colors.css' %}" /> -->
+
+	<title>NTS-Dashboard</title>
+
+	<style type="text/css">
+		.container {
+			width: 560px;
+			height: 320px;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body class="bg-theme bg-theme2">
+
+    <div class="col-md-9">
+
+            <div class="row row-cols-md-auto g-lg-3">
+
+                <div class="col-md-7">
+                    <form  action = '#' method="POST" id="form">
+                        <label for="input_date">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="Submit" class="btn">
+                            </label>
+                    </form>
+                </div>
+            </div>
+
+    </div>
+
+        {{  text }}
+
+    <div class="card-body">
+        <div class="chart-area">
+            <canvas id="my89Chart" width="500" height="200"></canvas>
+        </div>
+    </div>
+
+
+    <script src="{% static 'assets/js/index3.js' %}"></script>
+
+
+</body>
+
+</html>
