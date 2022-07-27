@@ -1,15 +1,12 @@
 from allauth.account.forms import SignupForm
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 
-
+# Here we give the access to the main html template only if the user is identified (LoginRequiredMixin)
 class IndexView(TemplateView, LoginRequiredMixin):
     template_name = 'Index.html'
 
@@ -28,6 +25,7 @@ class BasicSignupForm(SignupForm):
         return user
 
 
+# We give the possibility to become a user of the web app
 @login_required
 def upgrade_me(request):
     user = request.user

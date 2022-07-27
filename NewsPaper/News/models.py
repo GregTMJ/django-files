@@ -1,3 +1,7 @@
+"""
+Basic model for a basic web app.
+elements of class Posts require all elements except for time on which the post was created
+"""
 from django.db import models
 
 
@@ -22,5 +26,7 @@ class Posts(models.Model):
         return f'{self.title}: {self.text[:50]}'
     
     def get_absolute_url(self):
-        return f'/Posts/{self.id}'
+        # Using the pk matters if in the url, the slug is represented by the pk of the model
+        # Although the field "title" can be used here because it's unique
+        return f'/Posts/{self.pk}'
 

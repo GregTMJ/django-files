@@ -3,11 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .filters import SearchFilter
 from .models import Posts
 from .forms import PostForm
-from django.core.paginator import Paginator
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
-
-# Create your views here.
 
 
 class Post_List(ListView):
@@ -22,6 +18,7 @@ class Post_List(ListView):
         return context
 
 
+# a Permission Required Mixin is required, which means the admin must give you a status, that will give you access
 class Post_detail(DetailView, PermissionRequiredMixin):
     model = Posts
     template_name = 'post_details.html'
@@ -64,8 +61,8 @@ class PostUpdate(UpdateView, PermissionRequiredMixin):
     permission_required = 'News.change_posts'
 
     def get_object(self, **kwargs):
-        id = self.kwargs.get('pk')
-        return Posts.objects.get(pk=id)
+        post_pk = self.kwargs.get('pk')
+        return Posts.objects.get(pk=post_pk)
 
 
 class PostDelete(DeleteView, PermissionRequiredMixin):

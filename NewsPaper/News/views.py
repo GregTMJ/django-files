@@ -1,40 +1,43 @@
-from datetime import date, datetime
-
-from django.shortcuts import render
+from datetime import datetime
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .filters import SearchFilter
 from .models import Posts
 from .forms import PostForm
-from django.core.paginator import Paginator
+
+"""
+If we want to use the details of a model, or use a certain parameter, we should use the get_context_data, to give the 
+templates the context 
+"""
 
 
-
-# Create your views here.
-
-
+# Here we are just listing all available posts in a post_list.html
 class Post_List(ListView):
     model = Posts
     template_name = 'post_list.html'
     context_object_name = 'Posts'
+    # Order by id desc
     queryset = Posts.objects.order_by('-id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['time_now']= datetime.utcnow()
+        context['time_now'] = datetime.utcnow()
         return context
 
 
+# Shows the details of a certain post (fields show) in post_details.html
 class Post_detail(DetailView):
     model = Posts
     template_name = 'post_details.html'
     context_object_name = 'Post'
 
 
+# Creates a post by a certain user
 class PostCreate(CreateView):
     template_name = 'post_create.html'
     form_class = PostForm
 
 
+# Add the possibility to search for a concrete post
 class Search_List(ListView):
     model = Posts
     template_name = 'search.html'
@@ -58,15 +61,19 @@ class Search_List(ListView):
         return super().get(request, *args, **kwargs)
 
 
+# By giving to slug(pk) of a post, we can update the information
 class PostUpdate(UpdateView):
     template_name = 'post_update.html'
     form_class = PostForm
 
     def get_object(self, **kwargs):
-        id = self.kwargs.get('pk')
-        return Posts.objects.get(pk=id)
+        # Important! never use a variable that is already in the query of django, example:
+        # id = self.kwargs.get('pk') - id is already defined by django
+        post_pk = self.kwargs.get('pk')
+        return Posts.objects.get(pk=post_pk)
 
 
+# Deletes the post by pk
 class PostDelete(DeleteView):
     template_name = 'post_delete.html'
     queryset = Posts.objects.all()

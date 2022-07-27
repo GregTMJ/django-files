@@ -1,3 +1,6 @@
+"""
+The same models as NewsPaper project + basic signup model
+"""
 from django.db import models
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
@@ -23,9 +26,10 @@ class Posts(models.Model):
         return f'{self.title}: {self.text[:50]}'
     
     def get_absolute_url(self):
-        return f'/Posts/{self.id}'
+        return f'/Posts/{self.pk}'
 
 
+# Django provides us a class, that has already the required fields for a signup
 class BasicSignupForm(SignupForm):
 
     def save(self, request):
